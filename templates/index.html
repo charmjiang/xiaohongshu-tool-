@@ -228,8 +228,8 @@
     <div class="price-tag">¥9.9</div>
     <div class="price-desc">一次付费，永久使用</div>
     <div class="qr-placeholder" id="qr-area">
-      <!-- 把你的收款码图片放到 static/qr.png -->
-      <span>扫码付款</span>
+      <img src="/static/qr.png" alt="扫码付款" onerror="this.style.display='none';this.parentNode.querySelector('span').style.display='block'">
+      <span style="display:none">扫码付款</span>
     </div>
     <div class="modal-hint">付款后截图发微信，备注"文案"<br>收到激活码后在下方输入</div>
     <div class="unlock-row">
