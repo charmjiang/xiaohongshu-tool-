@@ -14,8 +14,14 @@ client = OpenAI(
     base_url="https://api.deepseek.com"
 )
 
-FREE_LIMIT = int(os.environ.get("FREE_LIMIT", 5))
-ADMIN_CODES = set(os.environ.get("ADMIN_CODES", "").split(","))  # 有效解锁码，逗号分隔
+FREE_LIMIT = int(os.environ.get("FREE_LIMIT", 3))
+
+# 三档激活码
+CODE_MONTH1   = os.environ.get("CODE_MONTH1", "")    # 9.9首月
+CODE_MONTHLY  = os.environ.get("CODE_MONTHLY", "")   # 19.9次月起
+CODE_LIFETIME = os.environ.get("CODE_LIFETIME", "")  # 199终身
+
+ADMIN_CODES = {c for c in [CODE_MONTH1, CODE_MONTHLY, CODE_LIFETIME] if c}
 
 # 内存存储使用次数（生产环境可换Redis）
 usage_store = {}
@@ -48,6 +54,16 @@ STYLES = {
     "理性测评": "像真实用户写的测评，有优点也有缺点，数据具体，不夸大",
     "故事叙述": "以一段经历或故事引入，有起伏，让人代入感强",
     "干货清单": "实用为主，分点列举，简洁有据，像笔记整理",
+    "踩坑避雷": "以自己的失败经历开头，提醒别人注意，语气真诚不说教",
+    "对比测评": "同类产品横向对比，有具体差异描述，帮助读者做选择",
+    "新手攻略": "从零讲起，语气亲切，预判新手疑问，步骤清晰易懂",
+    "悬念开场": "开头设悬念或反转，吊足胃口，让人忍不住看下去",
+    "数字技巧": "标题和正文大量使用数字，如'3个方法''第2个最好用'，直接高效",
+    "情绪共鸣": "先描述一种普遍情绪或困境，让读者觉得'说的就是我'，再给出解法",
+    "场景代入": "开头用一个具体生活场景切入，让读者迅速感同身受",
+    "专家口吻": "以该领域内行人的视角写，有专业细节但不晦涩，给人可信感",
+    "轻吐槽风": "带点小抱怨小无奈，轻松幽默，有自嘲成分，读起来解压",
+    "治愈温暖": "语气温柔舒缓，注重情绪价值，让人读完感到被治愈或被鼓励",
 }
 
 SCENES = {
